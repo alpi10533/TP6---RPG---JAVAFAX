@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.isep.MainApp">
+   <children>
+      <AnchorPane layoutX="215.0" layoutY="146.0">
+         <children>
+            <Label text="Welcome !" textAlignment="CENTER">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="262.0" layoutY="200.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#switchToHeroLayout" prefHeight="26.0" prefWidth="75.0" text="START" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
