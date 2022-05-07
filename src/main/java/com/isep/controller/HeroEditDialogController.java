@@ -42,35 +42,15 @@ public class HeroEditDialogController {
             if (Objects.equals(typeField.getSelectionModel().getSelectedItem().toString(), "Hunter")){
                 hero.setName(nameField.getText());
                 hero.setType(1);
-                hero.setLifePoints();
-                hero.setArmor();
-                hero.setWeaponDamages();
-                hero.setPotions();
-                hero.setFoods();
             } else if (Objects.equals(typeField.getSelectionModel().getSelectedItem().toString(), "Healer")) {
                 hero.setName(nameField.getText());
                 hero.setType(2);
-                hero.setLifePoints();
-                hero.setArmor();
-                hero.setWeaponDamages();
-                hero.setPotions();
-                hero.setFoods();
             } else if (Objects.equals(typeField.getSelectionModel().getSelectedItem().toString(), "Mage")) {
                 hero.setName(nameField.getText());
                 hero.setType(3);
-                hero.setLifePoints();
-                hero.setArmor();
-                hero.setWeaponDamages();
-                hero.setPotions();
-                hero.setFoods();
             } else if (Objects.equals(typeField.getSelectionModel().getSelectedItem().toString(), "Warrior")) {
                 hero.setName(nameField.getText());
                 hero.setType(4);
-                hero.setLifePoints();
-                hero.setArmor();
-                hero.setWeaponDamages();
-                hero.setPotions();
-                hero.setFoods();
             }
             okClicked = true;
             dialogStage.close();

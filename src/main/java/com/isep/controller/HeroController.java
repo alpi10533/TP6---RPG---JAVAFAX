@@ -11,6 +11,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * Class HeroController
@@ -81,7 +82,15 @@ public class HeroController {
         Hero tempHero = new Hero();
         boolean okClicked = mainApp.showHeroEditDialog(tempHero);
         if (okClicked) {
-            mainApp.getHeroData().add(tempHero);
+            if (Objects.equals(tempHero.getType(), "Hunter")) {
+                mainApp.getHeroData().add(new Hunter(tempHero.getName()));
+            } else if (Objects.equals(tempHero.getType(), "Healer")) {
+                mainApp.getHeroData().add(new Healer(tempHero.getName()));
+            } else if (Objects.equals(tempHero.getType(), "Mage")) {
+                mainApp.getHeroData().add(new Mage(tempHero.getName()));
+            } else if (Objects.equals(tempHero.getType(), "Warrior")) {
+                mainApp.getHeroData().add(new Warrior(tempHero.getName()));
+            }
         }
     }
 

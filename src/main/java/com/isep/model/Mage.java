@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * Class Mage
  */
-public class Mage extends Hero {
+public class Mage extends SpellCaster {
 
   //
   // Fields

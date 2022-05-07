@@ -83,48 +83,16 @@ public class Hero {
     return lifePoints.get();
   }
 
-  public IntegerProperty lifePointsProperty() {
-    return lifePoints;
-  }
-
-  public int getArmor() {
-    return armor.get();
-  }
-
-  public IntegerProperty armorProperty() {
-    return armor;
-  }
-
   public int getWeaponDamages() {
     return weaponDamages.get();
-  }
-
-  public IntegerProperty weaponDamagesProperty() {
-    return weaponDamages;
-  }
-
-  public ArrayList<Potion> getPotions() {
-    return potions;
   }
 
   public int getSizeOfPotions() {
     return sizeOfPotions.get();
   }
 
-  public IntegerProperty sizeOfPotionsProperty() {
-    return sizeOfPotions;
-  }
-
-  public ArrayList<Food> getFoods() {
-    return foods;
-  }
-
   public int getSizeOfFoods() {
     return sizeOfFoods.get();
-  }
-
-  public IntegerProperty sizeOfPFoodsProperty() {
-    return sizeOfFoods;
   }
 
   public int attack(){
@@ -179,59 +147,6 @@ public class Hero {
 
   public void setName(String name) {
     this.name.set(name);
-  }
-
-  public void setLifePoints() {
-    switch (type.get()) {
-      case 1, 2, 4 -> {
-        this.lifePoints.set(50);
-      }
-      case 3 -> {
-        this.lifePoints.set(60);
-      }
-    }
-  }
-
-  public void setArmor() {
-    switch (type.get()) {
-      case 1, 2, 3 -> {
-        this.armor.set(0);
-      }
-      case 4 -> {
-        this.armor.set(5);
-      }
-    }
-  }
-
-  public void setWeaponDamages() {
-    switch (type.get()) {
-      case 1, 4 -> {
-        this.weaponDamages.set(15);
-      }
-      case 2, 3 -> {
-        this.weaponDamages.set(10);
-      }
-    }
-  }
-
-  public void setPotions() {
-    ArrayList<Potion> potions = new ArrayList<Potion>();
-    potions.add(new Potion());
-    potions.add(new Potion());
-    switch (type.get()) {
-      case 2 -> {
-        this.potions = potions;
-        this.sizeOfPotions = new SimpleIntegerProperty(this.potions.size());
-      }
-      case 1, 3, 4 -> {
-        this.sizeOfPotions = new SimpleIntegerProperty(0);
-      }
-    }
-  }
-
-  public void setFoods() {
-    this.foods = new ArrayList<Food>();
-    this.sizeOfFoods = new SimpleIntegerProperty(0);
   }
 
 }
