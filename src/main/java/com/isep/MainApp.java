@@ -30,9 +30,17 @@ public class MainApp extends Application {
     //
     // Fields
     //
+
+    // on y stockera la stage de notre application
     private Stage stage;
+
+    // on utilise des listes observables pour que la vue soit toujours synchronisée avec les données de l'application
+
+    // on y stockera les données des héros de notre application
     private ObservableList<Hero> heroData = FXCollections.observableArrayList();
+    // on y stockera les données des ennemis de notre application
     private ObservableList<Enemy> enemyData = FXCollections.observableArrayList();
+    // on y stockera l'historique des actions des héros et ennemis de notre application
     private ObservableList<History> historyData = FXCollections.observableArrayList();
 
     //
@@ -44,9 +52,12 @@ public class MainApp extends Application {
     //
     // @Override Methods
     //
+
+    // initialisation de la première scène
     @Override
     public void start(Stage stage) {
         try {
+            // on charge la vue "RootLayout"
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("view/RootLayout.fxml")));
             stage.getIcons().add(new Image("https://cdn-icons-png.flaticon.com/512/2619/2619285.png"));
             stage.setTitle("Mini RPG lite 3000");
@@ -60,10 +71,17 @@ public class MainApp extends Application {
     //
     // Methods
     //
+
+    // la méthode "switchToHeroLayout" permet de passer à la seconde scène
+    // cette méthode est appelée quand le bouton START est cliqué (cf. "RootLayout")
     public void switchToHeroLayout(ActionEvent event) throws IOException {
+        // on charge la vue "HeroLayout"
         FXMLLoader loader = new FXMLLoader(getClass().getResource("view/HeroLayout.fxml"));
         Parent root = loader.load();
+        // on associe à la vue le contrôleur "HeroController"
         HeroController controller = loader.getController();
+        // on appelle la méthode "setMainApp" du contrôleur "HeroController" en passant comme paramètre notre application "MainApp"
+        // cette méthode est appelée pour récupérer les données importantes de l'application (notamment "heroData", "enemyData" et historyData")
         controller.setMainApp(this);
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.getIcons().add(new Image("https://cdn-icons-png.flaticon.com/512/2619/2619285.png"));
@@ -72,8 +90,12 @@ public class MainApp extends Application {
         stage.show();
     }
 
-    public boolean showHeroEditDialog(Hero hero) {
+    // la méthode "showHeroEditDialog" permet d'ouvrir une fenêtre modale pour l'ajout d'un nouvel héro
+    // cette méthode prend comme paramètre un héro temporaire
+    // et retourne un booléen
+    public boolean showHeroEditDialog(Hero tempHero) {
         try {
+            // on charge la vue "HeroEditDialog"
             FXMLLoader loader = new FXMLLoader(getClass().getResource("view/HeroEditDialog.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
             Stage dialogStage = new Stage();
@@ -83,15 +105,32 @@ public class MainApp extends Application {
             dialogStage.initOwner(stage);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
+            // on associe à la vue le contrôleur "HeroEditDialog"
             HeroEditDialogController controller = loader.getController();
+            // on appelle la méthode "setDialogStage" du contrôleur "HeroEditDialog" en passant comme paramètre notre fenêtre modale "dialogStage"
+            // cette méthode est appelée pour récupérer les données de la fenêtre
             controller.setDialogStage(dialogStage);
-            controller.setHero(hero);
+            // on appelle la méthode "setHero" du contrôleur "HeroEditDialog" en passant comme paramètre notre héro temporaire "tempHero"
+            // cette méthode est appelée pour récupérer les données du héro
+            controller.setHero(tempHero);
             dialogStage.showAndWait();
-            return controller.isOkClicked();
+            return controller.isOkClicked(); // TRUE si l'ajout d'un nouvel héro est confirmé
         } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public void switchToFight() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("view/FightLayout.fxml"));
+        Parent root = loader.load();
+        FightController controller = loader.getController();
+        controller.setMainApp(this);
+        stage = new Stage();
+        stage.getIcons().add(new Image("https://cdn-icons-png.flaticon.com/512/2619/2619285.png"));
+        stage.setTitle("Mini RPG lite 3000");
+        stage.setScene(new Scene(root, 600, 400));
+        stage.show();
     }
 
     public void showAwardEditDialog(Hero hero) {
@@ -114,21 +153,14 @@ public class MainApp extends Application {
         }
     }
 
-    public void switchToFight() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("view/FightLayout.fxml"));
-        Parent root = loader.load();
-        FightController controller = loader.getController();
-        controller.setMainApp(this);
-        stage = new Stage();
-        stage.getIcons().add(new Image("https://cdn-icons-png.flaticon.com/512/2619/2619285.png"));
-        stage.setTitle("Mini RPG lite 3000");
-        stage.setScene(new Scene(root, 600, 400));
-        stage.show();
-    }
-
+    // point d'entrée de l'application
     public static void main(String[] args) {
         launch(args);
     }
+
+    //
+    // Accessor Methods
+    //
 
     public ObservableList<Hero> getHeroData() {
         return heroData;
