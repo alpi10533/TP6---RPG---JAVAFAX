@@ -107,7 +107,7 @@ public class HeroEditDialogController {
         if (nameField.getText() == null || nameField.getText().length() == 0) {
             errorMessage += "No valid name";
         }
-        //si le type de héro n'a pas été saisi
+        //si le type de héro n'a pas été sélectionné
         if (typeField.getSelectionModel().getSelectedItem() == null) {
             errorMessage += "Please select a type of hero";
         }
