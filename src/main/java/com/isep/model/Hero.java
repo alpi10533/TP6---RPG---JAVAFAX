@@ -11,6 +11,9 @@ public class Hero {
   //
   // Fields
   //
+
+  // on utilise des "IntegerProperty" et "StringProperty" pour que la vue soit toujours synchronisée avec les données du héro
+
   private final IntegerProperty type;
   private final StringProperty name;
   private IntegerProperty lifePoints;
