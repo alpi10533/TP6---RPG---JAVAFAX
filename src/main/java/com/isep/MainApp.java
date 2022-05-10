@@ -72,7 +72,7 @@ public class MainApp extends Application {
     // Methods
     //
 
-    // la méthode "switchToHeroLayout" permet de passer à la seconde scène
+    // la méthode "switchToHeroLayout" permet de passer à la seconde scène (même stage)
     // cette méthode est appelée quand le bouton START est cliqué (cf. "RootLayout")
     public void switchToHeroLayout(ActionEvent event) throws IOException {
         // on charge la vue "HeroLayout"
@@ -90,9 +90,11 @@ public class MainApp extends Application {
         stage.show();
     }
 
-    // la méthode "showHeroEditDialog" permet d'ouvrir une fenêtre modale pour l'ajout d'un nouvel héro
+    // la méthode "showHeroEditDialog" permet d'ouvrir une fenêtre modale (nouvelle stage en +) pour l'ajout d'un nouvel héro
     // cette méthode prend comme paramètre un héro temporaire
     // et retourne un booléen
+    // elle sera appelé par la fonction "addHero" du contrôleur "HeroController"
+    // cette fonction sera fonction sera elle-même appelée quand le bouton "NEW" est cliqué (cf. "HeroLayout" )
     public boolean showHeroEditDialog(Hero tempHero) {
         try {
             // on charge la vue "HeroEditDialog"
@@ -107,8 +109,8 @@ public class MainApp extends Application {
             dialogStage.setScene(scene);
             // on associe à la vue le contrôleur "HeroEditDialog"
             HeroEditDialogController controller = loader.getController();
-            // on appelle la méthode "setDialogStage" du contrôleur "HeroEditDialog" en passant comme paramètre notre fenêtre modale "dialogStage"
-            // cette méthode est appelée pour récupérer les données de la fenêtre
+            // on appelle la méthode "setDialogStage" du contrôleur "HeroEditDialog" en passant comme paramètre notre nouvelle stage "dialogStage"
+            // cette méthode est appelée pour récupérer les données de la stage
             controller.setDialogStage(dialogStage);
             // on appelle la méthode "setHero" du contrôleur "HeroEditDialog" en passant comme paramètre notre héro temporaire "tempHero"
             // cette méthode est appelée pour récupérer les données du héro
@@ -120,11 +122,15 @@ public class MainApp extends Application {
             return false;
         }
     }
-
+    // la méthode "showHeroEditDialog" permet de changer de fenêtre (nouvelle stage) pour les combats
     public void switchToFight() throws IOException {
+        // on charge la vue "FightLayout"
         FXMLLoader loader = new FXMLLoader(getClass().getResource("view/FightLayout.fxml"));
         Parent root = loader.load();
+        // on associe à la vue le contrôleur "FightController"
         FightController controller = loader.getController();
+        // on appelle la méthode "setMainApp" du contrôleur "FightController" en passant comme paramètre notre application "MainApp"
+        // cette méthode est appelée pour récupérer les données importantes de l'application (notamment "heroData", "enemyData" et historyData")
         controller.setMainApp(this);
         stage = new Stage();
         stage.getIcons().add(new Image("https://cdn-icons-png.flaticon.com/512/2619/2619285.png"));
@@ -133,8 +139,13 @@ public class MainApp extends Application {
         stage.show();
     }
 
+    // la méthode "showAwardEditDialog" permet d'ouvrir une fenêtre modale (nouvelle stage en +) pour le choix d'une récompense
+    // cette méthode prend comme paramètre un héro
+    // elle sera appelé par la fonction "getAward" du contrôleur "FightController"
+    // cette fonction sera fonction sera elle-même appelée automatiquement quand un héro gagne un combat
     public void showAwardEditDialog(Hero hero) {
         try {
+            // on charge la vue "AwardEditDialog"
             FXMLLoader loader = new FXMLLoader(getClass().getResource("view/AwardEditDialog.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
             Stage dialogStage = new Stage();
@@ -144,8 +155,13 @@ public class MainApp extends Application {
             dialogStage.initOwner(stage);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
+            // on associe à la vue le contrôleur "AwardEditDialogController"
             AwardEditDialogController controller = loader.getController();
+            // on appelle la méthode "setDialogStage" du contrôleur "AwardEditDialogController" en passant comme paramètre notre nouvelle stage "dialogStage"
+            // cette méthode est appelée pour récupérer les données de la stage
             controller.setDialogStage(dialogStage);
+            // on appelle la méthode "setHero" du contrôleur "AwardEditDialogController" en passant comme paramètre notre héro vainqueur "hero"
+            // cette méthode est appelée pour récupérer les données du héro
             controller.setHero(hero);
             dialogStage.showAndWait();
         } catch (IOException e) {
@@ -161,7 +177,6 @@ public class MainApp extends Application {
     //
     // Accessor Methods
     //
-
     public ObservableList<Hero> getHeroData() {
         return heroData;
     }
