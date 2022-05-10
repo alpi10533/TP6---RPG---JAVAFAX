@@ -101,10 +101,14 @@ public class HeroController {
     // sinon on met à jour les données
     @FXML
     private void addHero() {
+        // on crée un héros temporaire pour récupérer un nom et un type
         Hero tempHero = new Hero();
-        // on passe à la saisie des informations du nouvel héros via une fenêtre modale
+        // on passe à la saisie de ces informations via une fenêtre modale
         boolean okClicked = mainApp.showHeroEditDialog(tempHero);
+        // s'il y a confirmation
         if (okClicked) {
+            // on crée un nouvel objet selon le type du héros temporaire
+            // on ajoute ce nouvel objet à la liste de héros
             if (Objects.equals(tempHero.getType(), "Hunter")) {
                 mainApp.getHeroData().add(new Hunter(tempHero.getName()));
             } else if (Objects.equals(tempHero.getType(), "Healer")) {
@@ -157,7 +161,7 @@ public class HeroController {
     //
     // Methods
 
-    // cette méthode est appelée pour récupérer les données importantes de l'application (notamment "heroData", "enemyData" et historyData")
+    // cette méthode est appelée dans le "MainApp" pour récupérer les données importantes de l'application (notamment "heroData", "enemyData" et historyData")
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
         heroTable.setItems(mainApp.getHeroData());
