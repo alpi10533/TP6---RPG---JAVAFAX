@@ -338,8 +338,8 @@ public class FightController {
             } else { // sinon
                 update(); // on met à jour les données des combattants
             }
-        } else if (event.getSource().equals(buttonEnd)){
-            System.exit(0);
+        } else if (event.getSource().equals(buttonEnd)){ // si le bouton END est cliqué
+            System.exit(0); // on ferme l'application
         }
     }
 
@@ -347,6 +347,8 @@ public class FightController {
     // Methods
     //
 
+    // cette méthode est appelée dans le "MainApp" pour récupérer les données importantes de l'application (notamment "heroData", "enemyData" et historyData")
+    // elle permet également l'initialisation de plusieurs variables
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
         round = 0;
@@ -354,6 +356,7 @@ public class FightController {
         historyTable.setItems(mainApp.getHistoryData());
     }
 
+    // cette méthode est appelée à chaque nouveau combat
     public void launch() {
         round++;
         generateCombat();
@@ -370,15 +373,17 @@ public class FightController {
         }
     }
 
+    // cette méthode permet la génération aléatoire de dux combattants : un héro et un ennemi
     public void generateCombat() {
         playerTurn = (int) (Math.random() * 2);
         fightingHeroIndex = (int)(Math.random() * mainApp.getHeroData().size());
         fightingEnemyIndex = (int)(Math.random() * mainApp.getEnemyData().size());
     }
 
+    // cette méthode permet de synchroniser la vue et les données de l'application
     public void update() {
-        if (mainApp.getHeroData().size() == 0 || mainApp.getEnemyData().size() == 0) {
-            if (mainApp.getHeroData().size() == 0) {
+        if (mainApp.getHeroData().size() == 0 || mainApp.getEnemyData().size() == 0) { // s'il n'y a plus héro ou d'ennemi
+            if (mainApp.getHeroData().size() == 0) { // s'il n'y a plus de héro
                 nameHeroLabel.setText("");
                 typeHeroLabel.setText("");
                 lifePointsHeroLabel.setText("");
@@ -391,7 +396,7 @@ public class FightController {
                 weaponDamagesEnemyLabel.setText(Integer.toString(mainApp.getEnemyData().get(fightingEnemyIndex).getWeaponDamages()));
                 fightLabel.setText("YOU LOSE");
                 userShouldEnd = 1;
-            } else if (mainApp.getEnemyData().size() == 0) {
+            } else if (mainApp.getEnemyData().size() == 0) { // s'il n'a plus d'ennemi
                 nameHeroLabel.setText(mainApp.getHeroData().get(fightingHeroIndex).getName());
                 typeHeroLabel.setText(mainApp.getHeroData().get(fightingHeroIndex).getType());
                 lifePointsHeroLabel.setText(Integer.toString(mainApp.getHeroData().get(fightingHeroIndex).getLifePoints()));
@@ -405,7 +410,7 @@ public class FightController {
                 fightLabel.setText("YOU WIN");
                 userShouldEnd = 2;
             }
-        } else {
+        } else { // sinon
             nameHeroLabel.setText(mainApp.getHeroData().get(fightingHeroIndex).getName());
             typeHeroLabel.setText(mainApp.getHeroData().get(fightingHeroIndex).getType());
             lifePointsHeroLabel.setText(Integer.toString(mainApp.getHeroData().get(fightingHeroIndex).getLifePoints()));
@@ -420,6 +425,8 @@ public class FightController {
         }
     }
 
+    // cette méthode est appelée automatiquement lorsqu'un héro gagne un combat
+    // elle permet au héro de récupérer sa récompense
     private void getAward() {
         mainApp.showAwardEditDialog(mainApp.getHeroData().get(fightingHeroIndex));
         update();
