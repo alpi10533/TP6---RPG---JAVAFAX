@@ -157,182 +157,186 @@ public class FightController {
                     mainApp.getHeroData().remove(fightingHeroIndex); // on supprime ce héro
                     if (mainApp.getHeroData().size() != 0) { // s'il reste encore d'autres héros
                         launch(); // on lance un autre tour
-                    } else {
-                        update();
+                    } else { // sinon
+                        update(); // on met à jour les données des combattants
                     }
-                } else {
+                } else { // sinon
+                    // le héros attaque
                     mainApp.getHistoryData().add(new History(mainApp.getHeroData().get(fightingHeroIndex).getName() + " attacks ..."));
                     mainApp.getEnemyData().get(fightingEnemyIndex).deleteLifePoints(mainApp.getHeroData().get(fightingHeroIndex).attack());
-                    update();
-                    playerTurn = 1;
-                    if (mainApp.getEnemyData().size() != 0) {
-                        if (mainApp.getEnemyData().get(fightingEnemyIndex).getLifePoints() <= 0) {
+                    update(); // on met à jour les données des combattants
+                    playerTurn = 1; // c'est au tour de l'ennemi
+                    if (mainApp.getEnemyData().size() != 0) { // s'il reste encore des ennemis
+                        if (mainApp.getEnemyData().get(fightingEnemyIndex).getLifePoints() <= 0) { // si l'ennemi combattant n'a plus de points de vie
                             mainApp.getHistoryData().add(new History(mainApp.getEnemyData().get(fightingEnemyIndex).getName() + " eliminated ..."));
-                            mainApp.getEnemyData().remove(fightingEnemyIndex);
-                            getAward();
-                            if (mainApp.getEnemyData().size() != 0) {
-                                launch();
-                            } else {
-                                update();;
+                            mainApp.getEnemyData().remove(fightingEnemyIndex); // on supprime cet ennemi
+                            getAward(); // le héro récupère sa récompense
+                            if (mainApp.getEnemyData().size() != 0) { // s'il reste encore des ennemis
+                                launch(); // on lance un autre tour
+                            } else { // sinon
+                                update(); // on met à jour les données des combattants
                             }
-                        } else {
+                        } else { // sinon
+                            // l'ennemi attaque
                             mainApp.getHistoryData().add(new History(mainApp.getEnemyData().get(fightingEnemyIndex).getName() + " attacks ..."));
                             mainApp.getHeroData().get(fightingHeroIndex).deleteLifePoints(mainApp.getEnemyData().get(fightingEnemyIndex).attack());
-                            update();
-                            playerTurn = 0;
+                            update(); // on met à jour les données des combattants
+                            playerTurn = 0; // c'est au tour du héro
                         }
-                    } else {
-                        update();
+                    } else { // sinon
+                        update(); // on met à jour les données des combattants
                     }
                 }
-            } else {
-                update();
+            } else { // sinon
+                update(); // on met à jour les données des combattants
             }
-        } else if (event.getSource().equals(buttonHeal)) {
-            if (round == 0) {
+        } else if (event.getSource().equals(buttonHeal)) { // si le bouton HEAL est cliqué
+            if (round == 0) { // si la partie n'a pas commencé
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainApp.getStage());
                 alert.setTitle("ERROR");
                 alert.setHeaderText("The fight has not already started");
                 alert.setContentText("Please click on PLAY !");
                 alert.showAndWait();
-            } else if (userShouldEnd == 1) {
+            } else if (userShouldEnd == 1) { // s'il a perdu
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainApp.getStage());
                 alert.setTitle("ERROR");
                 alert.setHeaderText("The fight is finished : you loose");
                 alert.setContentText("Please click on END !");
                 alert.showAndWait();
-            } else if (userShouldEnd == 2) {
+            } else if (userShouldEnd == 2) { // s'il a gagné
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainApp.getStage());
                 alert.setTitle("ERROR");
                 alert.setHeaderText("The fight is finished : you won");
                 alert.setContentText("Please click on END !");
                 alert.showAndWait();
-            } else if (playerTurn != 0) {
+            } else if (playerTurn != 0) { // si ce n'est pas encore à son tour de jouer
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainApp.getStage());
                 alert.setTitle("ERROR");
                 alert.setHeaderText("It is not your turn yet !");
                 alert.showAndWait();
-            } else if (mainApp.getHeroData().get(fightingHeroIndex).getSizeOfPotions() == 0){
+            } else if (mainApp.getHeroData().get(fightingHeroIndex).getSizeOfPotions() == 0){ // s'il n'a pas de potion
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainApp.getStage());
                 alert.setTitle("ERROR");
                 alert.setHeaderText("You don't have any potions");
                 alert.setContentText("Please chose an other option !");
                 alert.showAndWait();
-            } else if (mainApp.getHeroData().size() != 0) {
-                if (mainApp.getHeroData().get(fightingHeroIndex).getLifePoints() <= 0) {
+            } else if (mainApp.getHeroData().size() != 0) { // s'il reste des héros
+                if (mainApp.getHeroData().get(fightingHeroIndex).getLifePoints() <= 0) { // si le héro combattant n'a plus de points de vie
                     mainApp.getHistoryData().add(new History(mainApp.getHeroData().get(fightingHeroIndex).getName() + " eliminated ..."));
-                    mainApp.getHeroData().remove(fightingHeroIndex);
-                    if (mainApp.getHeroData().size() != 0) {
-                        launch();
-                    } else {
-                        update();
+                    mainApp.getHeroData().remove(fightingHeroIndex); // on supprime ce héro
+                    if (mainApp.getHeroData().size() != 0) { // s'il reste encore d'autres héros
+                        launch(); // on lance un autre tour
+                    } else { // sinon
+                        update(); // on met à jour les données des combattants
                     }
-                } else {
+                } else { // sinon
+                    // le héro se heal
                     mainApp.getHistoryData().add(new History(mainApp.getHeroData().get(fightingHeroIndex).getName() + " heals ..."));
                     mainApp.getHeroData().get(fightingHeroIndex).heal();
-                    update();
-                    playerTurn = 1;
-                    if (mainApp.getEnemyData().size() != 0) {
-                        if (mainApp.getEnemyData().get(fightingEnemyIndex).getLifePoints() <= 0) {
+                    update(); // on met à jour les données des combattants
+                    playerTurn = 1; // c'est au tour de l'ennemi
+                    if (mainApp.getEnemyData().size() != 0) { // s'il reste des ennemis
+                        if (mainApp.getEnemyData().get(fightingEnemyIndex).getLifePoints() <= 0) { //  si l'ennemi combattant n'a plus de points de vie
                             mainApp.getHistoryData().add(new History(mainApp.getEnemyData().get(fightingEnemyIndex).getName() + " eliminated ..."));
-                            mainApp.getEnemyData().remove(fightingEnemyIndex);
-                            getAward();
-                            System.out.println(mainApp.getHeroData().get(fightingHeroIndex).getSizeOfFoods());
-                            if (mainApp.getEnemyData().size() != 0) {
-                                launch();
+                            mainApp.getEnemyData().remove(fightingEnemyIndex); // on supprime cet ennemi
+                            getAward(); // le héro récupère sa récompense
+                            if (mainApp.getEnemyData().size() != 0) { // s'il reste encore des ennemis
+                                launch(); // on lance un autre tour
                             } else {
-                                update();;
+                                update(); // on met à jour les données des combattants
                             }
-                        } else {
+                        } else { // sinon
+                            // l'ennemi attaque
                             mainApp.getHistoryData().add(new History(mainApp.getEnemyData().get(fightingEnemyIndex).getName() + " attacks ..."));
                             mainApp.getHeroData().get(fightingHeroIndex).deleteLifePoints(mainApp.getEnemyData().get(fightingEnemyIndex).attack());
-                            update();
-                            playerTurn = 0;
+                            update(); // on met à jour les données des combattants
+                            playerTurn = 0; // c'est au tour du héro
                         }
-                    } else {
-                        update();
+                    } else { // sinon
+                        update(); // on met à jour les données des combattants
                     }
                 }
-            } else {
-                update();
+            } else { // sinon
+                update(); // on met à jour les données des combattants
             }
-        } else if (event.getSource().equals(buttonEat)) {
-            if (round == 0) {
+        } else if (event.getSource().equals(buttonEat)) { // si le bouton EAT est cliqué
+            if (round == 0) { // si la partie n'a pas commencé
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainApp.getStage());
                 alert.setTitle("ERROR");
                 alert.setHeaderText("The fight has not already started");
                 alert.setContentText("Please click on PLAY !");
                 alert.showAndWait();
-            } else if (userShouldEnd == 1) {
+            } else if (userShouldEnd == 1) { // s'il a perdu
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainApp.getStage());
                 alert.setTitle("ERROR");
                 alert.setHeaderText("The fight is finished : you loose");
                 alert.setContentText("Please click on END !");
                 alert.showAndWait();
-            } else if (userShouldEnd == 2) {
+            } else if (userShouldEnd == 2) { // s'il a gagné
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainApp.getStage());
                 alert.setTitle("ERROR");
                 alert.setHeaderText("The fight is finished : you won");
                 alert.setContentText("Please click on END !");
                 alert.showAndWait();
-            } else if (playerTurn != 0) {
+            } else if (playerTurn != 0) { // si ce n'est pas encore à son tour de jouer
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainApp.getStage());
                 alert.setTitle("ERROR");
                 alert.setHeaderText("It is not your turn yet !");
                 alert.showAndWait();
-            } else if (mainApp.getHeroData().get(fightingHeroIndex).getSizeOfFoods() == 0){
+            } else if (mainApp.getHeroData().get(fightingHeroIndex).getSizeOfFoods() == 0){ // s'il n'a pas de food
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainApp.getStage());
                 alert.setTitle("ERROR");
                 alert.setHeaderText("You don't have any foods");
                 alert.setContentText("Please chose an other option !");
                 alert.showAndWait();
-            } else if (mainApp.getHeroData().size() != 0) {
-                if (mainApp.getHeroData().get(fightingHeroIndex).getLifePoints() <= 0) {
+            } else if (mainApp.getHeroData().size() != 0) { // s'il reste des héros
+                if (mainApp.getHeroData().get(fightingHeroIndex).getLifePoints() <= 0) { // si le héro combattant n'a plus de points de vie
                     mainApp.getHistoryData().add(new History(mainApp.getHeroData().get(fightingHeroIndex).getName() + " eliminated ..."));
-                    mainApp.getHeroData().remove(fightingHeroIndex);
-                    if (mainApp.getHeroData().size() != 0) {
-                        launch();
-                    } else {
-                        update();
+                    mainApp.getHeroData().remove(fightingHeroIndex); // on supprime cet héro
+                    if (mainApp.getHeroData().size() != 0) { // s'il reste encore des héros
+                        launch(); // on lance un autre tour
+                    } else { // sinon
+                        update(); // on met à jour les données des combattants
                     }
-                } else {
+                } else { // sinon
+                    // le héro eat
                     mainApp.getHistoryData().add(new History(mainApp.getHeroData().get(fightingHeroIndex).getName() + " heals ..."));
                     mainApp.getHeroData().get(fightingHeroIndex).eat();
-                    update();
-                    playerTurn = 1;
-                    if (mainApp.getEnemyData().size() != 0) {
-                        if (mainApp.getEnemyData().get(fightingEnemyIndex).getLifePoints() <= 0) {
+                    update(); // on met à jour les données des combattants
+                    playerTurn = 1; // c'est au tour de l'ennemi
+                    if (mainApp.getEnemyData().size() != 0) { // s'il reste des ennemis
+                        if (mainApp.getEnemyData().get(fightingEnemyIndex).getLifePoints() <= 0) { // si l'ennemi combattant n'a plus de points de vie
                             mainApp.getHistoryData().add(new History(mainApp.getEnemyData().get(fightingEnemyIndex).getName() + " eliminated ..."));
-                            mainApp.getEnemyData().remove(fightingEnemyIndex);
-                            getAward();
-                            System.out.println(mainApp.getHeroData().get(fightingHeroIndex).getSizeOfFoods());
-                            if (mainApp.getEnemyData().size() != 0) {
-                                launch();
-                            } else {
-                                update();;
+                            mainApp.getEnemyData().remove(fightingEnemyIndex); // on supprime cet ennemi
+                            getAward(); // le héro récupère sa récompense
+                            if (mainApp.getEnemyData().size() != 0) { // s'il reste encore des ennemis
+                                launch(); // on lance un autre tour
+                            } else { // sinon
+                                update(); // on met à jour les données des combattants
                             }
-                        } else {
+                        } else { // sinon
+                            // l'ennemi attaque
                             mainApp.getHistoryData().add(new History(mainApp.getEnemyData().get(fightingEnemyIndex).getName() + " attacks ..."));
                             mainApp.getHeroData().get(fightingHeroIndex).deleteLifePoints(mainApp.getEnemyData().get(fightingEnemyIndex).attack());
-                            update();
-                            playerTurn = 0;
+                            update(); // on met à jour les données des combattants
+                            playerTurn = 0; // c'est au tour du héro
                         }
-                    } else {
-                        update();
+                    } else { // sinon
+                        update(); // on met à jour les données des combattants
                     }
                 }
-            } else {
-                update();
+            } else { // sinon
+                update(); // on met à jour les données des combattants
             }
         } else if (event.getSource().equals(buttonEnd)){
             System.exit(0);
