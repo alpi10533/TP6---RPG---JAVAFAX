@@ -15,7 +15,7 @@ public class Hunter extends Hero {
   // Constructors
   //
   public Hunter (String name) {
-    super(1, name, 80,0,10, new ArrayList<Potion>(), new ArrayList<Food>());
+    super(1, name, 50,0,10, new ArrayList<Potion>(), new ArrayList<Food>());
   }
   
   //

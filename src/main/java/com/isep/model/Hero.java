@@ -24,6 +24,10 @@ public class Hero {
   private ArrayList<Food> foods;
   private IntegerProperty sizeOfFoods;
 
+  public IntegerProperty armorProperty() {
+    return armor;
+  }
+
   //
   // Constructors
   //
@@ -86,6 +90,10 @@ public class Hero {
     return lifePoints.get();
   }
 
+  public int getArmor() {
+    return armor.get();
+  }
+
   public int getWeaponDamages() {
     return weaponDamages.get();
   }
@@ -127,13 +135,13 @@ public class Hero {
   public void addPotions(){
     potions.add(new Potion());
     potions.add(new Potion());
-    this.sizeOfPotions = new SimpleIntegerProperty(2);
+    sizeOfPotions.set(sizeOfPotions.get() + 2);
   }
 
   public void addFoods(){
     foods.add(new Food());
     foods.add(new Food());
-    this.sizeOfFoods = new SimpleIntegerProperty(2);
+    sizeOfFoods.set(sizeOfFoods.get() + 2);
   }
 
   public void deleteLifePoints(int number) {

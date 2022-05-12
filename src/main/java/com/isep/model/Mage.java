@@ -16,7 +16,7 @@ public class Mage extends SpellCaster {
   // Constructors
   //
   public Mage (String name) {
-    super(3, name,80,0,10, new ArrayList<Potion>(), new ArrayList<Food>());
+    super(3, name,80,0,10, new ArrayList<Potion>(){{add(new Potion());}}, new ArrayList<Food>());
   }
   
   //

@@ -15,7 +15,7 @@ public class Healer extends SpellCaster {
     // Constructors
     //
     public Healer (String name) {
-        super(2, name, 50, 0, 5, new ArrayList<Potion>(), new ArrayList<Food>());
+        super(2, name, 50, 0, 5, new ArrayList<Potion>(){{add(new Potion()); add(new Potion());}}, new ArrayList<Food>());
     }
 
     //
