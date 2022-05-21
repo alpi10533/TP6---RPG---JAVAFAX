@@ -16,17 +16,13 @@ public class Hero {
 
   private final IntegerProperty type;
   private final StringProperty name;
-  private IntegerProperty lifePoints;
-  private IntegerProperty armor;
-  private IntegerProperty weaponDamages;
+  private int lifePoints;
+  private int armor;
+  private int weaponDamages;
   private ArrayList<Potion> potions;
-  private IntegerProperty sizeOfPotions;
+  private int sizeOfPotions;
   private ArrayList<Food> foods;
-  private IntegerProperty sizeOfFoods;
-
-  public IntegerProperty armorProperty() {
-    return armor;
-  }
+  private int sizeOfFoods;
 
   //
   // Constructors
@@ -34,19 +30,19 @@ public class Hero {
   public Hero (int type, String name, int lifePoints, int armor, int weaponDamages, ArrayList<Potion> potions, ArrayList<Food> foods) {
     this.type = new SimpleIntegerProperty(type); // 1 = Hunter | 2 = Healer | 3 = Mage | 4 = Warrior
     this.name = new SimpleStringProperty(name);
-    this.lifePoints = new SimpleIntegerProperty(lifePoints);
-    this.armor = new SimpleIntegerProperty(armor);
-    this.weaponDamages = new SimpleIntegerProperty(weaponDamages);
+    this.lifePoints = lifePoints;
+    this.armor = armor;
+    this.weaponDamages = weaponDamages;
     this.potions = potions;
-    this.sizeOfPotions = new SimpleIntegerProperty(potions.size());
+    this.sizeOfPotions = potions.size();
     this.foods = foods;
-    this.sizeOfFoods = new SimpleIntegerProperty(foods.size());
+    this.sizeOfFoods = foods.size();
   }
 
   public Hero () {
     this(0, "", 0, 0, 0, new ArrayList<Potion>(), new ArrayList<Food>());
   }
-  
+
   //
   // Methods
   //
@@ -87,68 +83,68 @@ public class Hero {
   }
 
   public int getLifePoints() {
-    return lifePoints.get();
+    return lifePoints;
   }
 
   public int getArmor() {
-    return armor.get();
+    return armor;
   }
 
   public int getWeaponDamages() {
-    return weaponDamages.get();
+    return weaponDamages;
   }
 
   public int getSizeOfPotions() {
-    return sizeOfPotions.get();
+    return sizeOfPotions;
   }
 
   public int getSizeOfFoods() {
-    return sizeOfFoods.get();
+    return sizeOfFoods;
   }
 
   public int attack(){
-    return weaponDamages.get();
+    return weaponDamages;
   }
 
   public void eat(){
-    lifePoints.set(lifePoints.get() + 5);
+    lifePoints = lifePoints + 5;
     int index = foods.size() - 1;
     foods.remove(index);
-    sizeOfFoods = new SimpleIntegerProperty(foods.size());
+    sizeOfFoods = foods.size();
   }
 
   public void heal(){
-    lifePoints.set(lifePoints.get() + 10);
+    lifePoints = lifePoints + 10;
     int index = potions.size() - 1;
     potions.remove(index);
-    sizeOfPotions = new SimpleIntegerProperty(potions.size());
+    sizeOfPotions = potions.size();
   }
 
   public void upgradeArmor(){
-    armor.set(armor.get() + 20);
+    armor = armor + 20;
   }
 
   public void upgradeWeapon(){
-    weaponDamages.set(weaponDamages.get() + 10);
+    weaponDamages = weaponDamages + 10;
   }
 
   public void addPotions(){
     potions.add(new Potion());
     potions.add(new Potion());
-    sizeOfPotions.set(sizeOfPotions.get() + 2);
+    sizeOfPotions = potions.size();
   }
 
   public void addFoods(){
     foods.add(new Food());
     foods.add(new Food());
-    sizeOfFoods.set(sizeOfFoods.get() + 2);
+    sizeOfFoods = foods.size();
   }
 
   public void deleteLifePoints(int number) {
-    if (armor.get() != 0 && armor.get()<number){
-      lifePoints.set(lifePoints.get() - (number - armor.get()));
-    } else if (armor.get() == 0){
-      lifePoints.set(lifePoints.get() - number);
+    if (armor != 0 && armor<number){
+      lifePoints = lifePoints - (number - armor);
+    } else if (armor == 0){
+      lifePoints = lifePoints - number;
     }
   }
 
